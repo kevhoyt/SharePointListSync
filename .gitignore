@@ -1,0 +1,9 @@
+# Runtime artifacts from Invoke-SharePointListSync.ps1 runs
+Script/logs/
+Script/checkpoints/
+logs/
+checkpoints/
+*.log
+
+# Local configuration that may contain real site URLs / secrets - never commit
+*.local.json

@@ -1,0 +1,33 @@
+{
+  "sourceSiteUrl": "https://tenant.sharepoint.com/sites/Production",
+  "targetSiteUrl": "https://tenant.sharepoint.com/sites/Test",
+  "authentication": {
+    "mode": "Interactive",
+    "clientId": "00000000-0000-0000-0000-000000000000"
+  },
+  "readPageSize": 1000,
+  "writeBatchSize": 50,
+  "checkpointEveryItems": 1000,
+  "logDirectory": "./logs",
+  "checkpointDirectory": "./checkpoints",
+  "retry": {
+    "maxAttempts": 6,
+    "baseDelaySeconds": 5
+  },
+  "control": {
+    "enabled": false,
+    "list": "List Sync Control",
+    "dataset": "ReportingTestSnapshot",
+    "datasetField": "Title",
+    "stateField": "State",
+    "runIdField": "RunId",
+    "startedUtcField": "StartedUtc",
+    "completedUtcField": "CompletedUtc",
+    "summaryField": "ValidationSummary"
+  },
+  "listMapping": {
+    "enabled": true,
+    "listName": "List Sync Configuration",
+    "siteUrl": "https://tenant.sharepoint.com/sites/Test"
+  }
+}

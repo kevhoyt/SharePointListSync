@@ -1,0 +1,71 @@
+{
+  "_comment": "Advanced/manual mode: use this instead of listMapping when a list pair needs field-by-field control (renamed target fields, a subset of source fields, etc.). Explicit \"lists\" always takes precedence over \"listMapping\" when both are present.",
+  "sourceSiteUrl": "https://tenant.sharepoint.com/sites/Production",
+  "targetSiteUrl": "https://tenant.sharepoint.com/sites/Test",
+  "authentication": {
+    "mode": "Interactive",
+    "clientId": "00000000-0000-0000-0000-000000000000"
+  },
+  "readPageSize": 1000,
+  "writeBatchSize": 50,
+  "checkpointEveryItems": 1000,
+  "logDirectory": "./logs",
+  "checkpointDirectory": "./checkpoints",
+  "retry": {
+    "maxAttempts": 6,
+    "baseDelaySeconds": 5
+  },
+  "control": {
+    "enabled": false,
+    "list": "List Sync Control",
+    "dataset": "ReportingTestSnapshot",
+    "datasetField": "Title",
+    "stateField": "State",
+    "runIdField": "RunId",
+    "startedUtcField": "StartedUtc",
+    "completedUtcField": "CompletedUtc",
+    "summaryField": "ValidationSummary"
+  },
+  "lists": [
+    {
+      "name": "Parents",
+      "sourceList": "Parents",
+      "targetList": "Parents-Test",
+      "sourceIdField": "SourceID",
+      "sourceHashField": "SourceHash",
+      "sourceModifiedField": "SourceModifiedUtc",
+      "syncRunIdField": "SyncRunId",
+      "syncUpdatedField": "SyncUpdatedUtc",
+      "deleteTargetOnly": false,
+      "dependsOn": [],
+      "lookups": [],
+      "fields": [
+        { "source": "Title", "target": "Title", "type": "Text" },
+        { "source": "Status", "target": "Status", "type": "Choice" },
+        { "source": "Amount", "target": "Amount", "type": "Currency" },
+        { "source": "ReportDate", "target": "ReportDate", "type": "DateTime" }
+      ]
+    },
+    {
+      "name": "Children",
+      "sourceList": "Children",
+      "targetList": "Children-Test",
+      "sourceIdField": "SourceID",
+      "sourceHashField": "SourceHash",
+      "sourceModifiedField": "SourceModifiedUtc",
+      "syncRunIdField": "SyncRunId",
+      "syncUpdatedField": "SyncUpdatedUtc",
+      "deleteTargetOnly": false,
+      "dependsOn": ["Parents"],
+      "lookups": [
+        { "field": "Parent", "parentList": "Parents" }
+      ],
+      "fields": [
+        { "source": "Title", "target": "Title", "type": "Text" },
+        { "source": "Parent", "target": "Parent", "type": "Lookup" },
+        { "source": "Owners", "target": "Owners", "type": "MultiPerson" },
+        { "source": "Categories", "target": "Categories", "type": "MultiChoice" }
+      ]
+    }
+  ]
+}
